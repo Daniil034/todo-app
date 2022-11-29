@@ -1,0 +1,13 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(32, 33, 44, 0.5);
+    z-index: 99;
+    height: 100vh;
+    width: 100vw;
+}
+
+.todo-tile {
+    background-color: #fff;
+}
