@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import { selectCurrentBoard } from '../../features/currentBoard/currentBoardSlice';
+import { selectCurrentBoard } from '../../routes/currentBoard/currentBoardSlice';
 
 const CurrentBoardName = () => {
     const {name: currentBoardName} = useSelector(selectCurrentBoard)

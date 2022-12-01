@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import TodoModalContainer from "../TodoModalContainer/TodoModalContainer";
 import "./style.css";
 
-const TodoTile = ({ task }) => {
-  const { title, description, status, subtasks } = task;
+const TodoTile = ({ task, boardName, columnName }) => {
+  const { title, subtasks } = task;
   //   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -23,7 +23,7 @@ const TodoTile = ({ task }) => {
       </li>
       {isModalVisible && (
         <div className="overlay" onClick={() => setIsModalVisible(false)}>
-          <TodoModalContainer task={task} />
+          <TodoModalContainer task={task} boardName={boardName} columnName={columnName} setIsModalVisible={setIsModalVisible} />
         </div>
       )}
     </>

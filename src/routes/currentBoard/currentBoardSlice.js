@@ -12,6 +12,8 @@ export const currentBoardReducer = (currentBoard = initialState, action) => {
   }
 };
 
+// action creators
+
 export const pickCurrentBoard = (board) => {
   return {
     type: "currentBoard/pick",
