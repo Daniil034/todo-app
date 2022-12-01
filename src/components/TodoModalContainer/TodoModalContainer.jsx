@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import TodoModalContent from "../TodoModalContent/TodoModalContent";
-import TodoModalEdit from "../TodoModalEdit/TodoModalEdit";
+import EditTaskModal from '../EditTaskModal/EditTaskModal';
+import TodoModalContent from '../TodoModalContent/TodoModalContent';
 import DeleteTaskModal from "../DeleteTaskModal/DeleteTaskModal";
 import "./style.css";
 
@@ -11,7 +11,7 @@ const TodoModalContainer = ({ task, boardName, columnName, setIsModalVisible }) 
   return (
     <div className="todo-modal" onClick={(e) => e.stopPropagation()}>
       {isEditable ? (
-        <TodoModalEdit
+        <EditTaskModal
           task={task}
           boardName={boardName}
           columnName={columnName}

@@ -21,7 +21,6 @@ const TodoModalEdit = ({
   const [taskDescription, setTaskDescription] = useState(description);
   const [taskStatus, setTaskStatus] = useState(status);
   const [taskFiles, setTaskFiles] = useState(files);
-
   const [subtasksInputs, setSubtasksInput] = useSubtasksInputs({ subtasks });
 
   // handlers

@@ -26,7 +26,6 @@ export const allBoardsReducer = (allBoards = initialState, action) => {
     case "allBoards/addTask": {
       const { title, description, status, subtasks, id, files } = action.payload;
       const { boardIndex, columnIndex } = getIndexes(allBoards, action.payload);
-      console.log(columnIndex);
       return [
         ...allBoards.slice(0, boardIndex),
         {
@@ -128,7 +127,6 @@ export const allBoardsReducer = (allBoards = initialState, action) => {
       ];
     }
     // case "allBoards/checkSubtask": {
-    //   console.log(action.payload)
     //   const { boardIndex, columnIndex, taskIndex } = getIndexes(
     //     allBoards,
     //     action.payload.task,
