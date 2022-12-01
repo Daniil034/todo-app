@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { useDispatch } from "react-redux";
+import { useSubtasksInputs } from "../../customHooks/useSubtasksInputs/useSubtasksInputs";
 import {
   addTask,
   deleteTask,
@@ -14,37 +15,16 @@ const TodoModalContent = ({
   setIsModalVisible,
   setShowDeleteModal
 }) => {
-
+  const {status, files, subtasks} = task;
   const dispatch = useDispatch();
-  const [taskStatus, setTaskStatus] = useState(task.status);
+  const [taskStatus, setTaskStatus] = useState(status);
   const [componentDidMount, setComponentDidMount] = useState(false);
 
-  const completedTasks = task.subtasks.filter(
+  const completedTasks = subtasks.filter(
     (subtask) => subtask.isCompleted
   ).length;
 
-  const initialState = task.subtasks.reduce((accumulator, subtask) => {
-    return [
-      ...accumulator,
-      {
-        title: subtask.title,
-        isCompleted: subtask.isCompleted,
-      },
-    ];
-  }, []);
-
-  const [subtasksInputs, setSubtasksInput] = useReducer(
-    (state, { newState, index }) => {
-      if (typeof newState === "function") {
-        return newState(state);
-      }
-      if (typeof index == "undefined") {
-        return [...state, newState];
-      }
-      return [...state.slice(0, index), newState, ...state.slice(index + 1)];
-    },
-    initialState
-  );
+  const [subtasksInputs, setSubtasksInput] = useSubtasksInputs({subtasks});
 
   const newTask = {
     ...task,
@@ -127,7 +107,7 @@ const TodoModalContent = ({
             </option>
           ))}
         </select>
-        {/* {task.files.map(file => <img src={task.files}></img>)} */}
+        {files.map(file => <img width='150px' src={file} />)}
       </form>
     </>
   );

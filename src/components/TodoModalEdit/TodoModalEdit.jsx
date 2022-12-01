@@ -1,5 +1,6 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useSubtasksInputs } from "../../customHooks/useSubtasksInputs/useSubtasksInputs";
 import {
   editTask,
   deleteTask,
@@ -14,58 +15,14 @@ const TodoModalEdit = ({
   setIsEditable,
   setIsModalVisible,
 }) => {
-  const { title, description, status, subtasks } = task;
+  const { title, description, status, subtasks, files } = task;
   const dispatch = useDispatch();
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDescription, setTaskDescription] = useState(description);
   const [taskStatus, setTaskStatus] = useState(status);
+  const [taskFiles, setTaskFiles] = useState(files);
 
-  const dataChangerThumbnail = (value) => {
-    setFormData({ ...formData, thumbImage: value });
-  };
-
-  const formInitial = {
-    thumbImage: "",
-  };
-  const [formData, setFormData] = useState(formInitial);
-
-  // const [subtasks, setSubtasks] = useState(task.subtasks);
-
-  // controllable inputs
-
-  const initialState = subtasks.reduce((accumulator, subtask) => {
-    return [
-      ...accumulator,
-      {
-        title: subtask.title,
-        isCompleted: subtask.isCompleted,
-      },
-    ];
-  }, []);
-
-  // const reducer = (state, action) => {
-  //   switch (action.type) {
-  //     case 'add': {
-  //       return {...state, ...action.payload}
-  //     };
-  //     case 'remove': {
-  //       return {state.filter(el => Object.keys(el)[0] !== )}
-  //     }
-  //   }
-  // }
-
-  const [subtasksInputs, setSubtasksInput] = useReducer(
-    (state, { newState, index }) => {
-      if (typeof newState === "function") {
-        return newState(state);
-      }
-      if (typeof index == "undefined") {
-        return [...state, newState];
-      }
-      return [...state.slice(0, index), newState, ...state.slice(index + 1)];
-    },
-    initialState
-  );
+  const [subtasksInputs, setSubtasksInput] = useSubtasksInputs({ subtasks });
 
   // handlers
 
@@ -77,6 +34,7 @@ const TodoModalEdit = ({
     description: taskDescription,
     status: taskStatus,
     subtasks: subtasksInputs,
+    files: taskFiles,
   };
 
   const handleSubtasksInputs = (e, subtask, index) => {
@@ -161,15 +119,10 @@ const TodoModalEdit = ({
           <option value="Done">Done</option>
         </select>
         <input type="submit" value="Save Changes" />
-        <FileUpload
-          name="thumbImage"
-          button_title="Thumbnail Image Upload"
-          max_file_size_in_kb="5000"
-          dataChanger={(value) => dataChangerThumbnail(value)}
-          type="image"
-          prev_src={"localhost:8001/" + formData?.thumbImage}
-          allowed_extensions={["jpg", "jpeg", "png", "gif"]}
-        />
+        <FileUpload setTaskFiles={setTaskFiles} />
+        {taskFiles.map((file) => (
+          <img src={file} />
+        ))}
       </form>
     </>
   );
