@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Form } from "react-router-dom";
 import { useSubtasksInputs } from "../../customHooks/useSubtasksInputs/useSubtasksInputs";
 import {
   editTask,
@@ -8,12 +9,11 @@ import {
 } from "../../features/allBoards/allBoardsSlice";
 import FileUpload from "../FileUpload/FileUpload";
 
-const TodoModalEdit = ({
+const EditTaskModal = ({
   task,
   boardName,
   columnName,
   setIsEditable,
-  setIsModalVisible,
 }) => {
   const { title, description, status, subtasks, files } = task;
   const dispatch = useDispatch();
@@ -61,7 +61,6 @@ const TodoModalEdit = ({
     } else {
       dispatch(addTask(newTask));
       dispatch(deleteTask(newTask));
-      setIsModalVisible(false);
     }
     setIsEditable(false);
   };
@@ -78,6 +77,7 @@ const TodoModalEdit = ({
           value={taskTitle}
           name="taskTitle"
           onChange={(e) => setTaskTitle(e.target.value)}
+          required
         />
         <h4>Description</h4>
         <textarea
@@ -127,4 +127,4 @@ const TodoModalEdit = ({
   );
 };
 
-export default TodoModalEdit;
+export default EditTaskModal;

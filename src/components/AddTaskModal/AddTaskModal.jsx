@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import { useSubtasksInputs } from "../../customHooks/useSubtasksInputs/useSubtasksInputs";
 import { useDispatch } from "react-redux";
 import FileUpload from "../FileUpload/FileUpload";
@@ -17,6 +17,7 @@ const AddTaskModal = ({ boardName, setShowAddTaskModal }) => {
 
   const newTask = {
     boardName,
+    id: `T-${Date.now()}`,
     columnName: taskStatus,
     title: taskTitle,
     description: taskDescription,
@@ -58,6 +59,7 @@ const AddTaskModal = ({ boardName, setShowAddTaskModal }) => {
           type="text"
           name="taskTitle"
           onChange={(e) => setTaskTitle(e.target.value)}
+          required
         />
         <h4>Description</h4>
         <textarea

@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { deleteTask } from "../../features/allBoards/allBoardsSlice";
 
 const DeleteTaskModal = ({
@@ -7,8 +8,8 @@ const DeleteTaskModal = ({
   boardName,
   columnName,
   setShowDeleteModal,
-  setIsModalVisible,
 }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleDelete = () => {
@@ -20,7 +21,7 @@ const DeleteTaskModal = ({
       })
     );
     setShowDeleteModal(false);
-    setIsModalVisible(false);
+    navigate(-1);
   };
 
   return (

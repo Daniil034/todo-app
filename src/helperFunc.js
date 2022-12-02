@@ -4,9 +4,15 @@ export const actionEnums = {
   edit: "EDIT",
 };
 
-export const getIndexes = (state, payload, action) => {
+export const columnsEnums = {
+  1: "Queue",
+  2: "Development",
+  3: "Done",
+};
+
+export const getTaskIndexes = (state, payload, action) => {
   const { status, boardName, id, columnName } = payload;
-  const boardIndex = state.findIndex((board) => board.name === boardName);
+  const boardIndex = getBoardIndex(state, boardName);
   let columnIndex;
   let taskIndex;
   if (action === actionEnums.delete || action === actionEnums.edit) {
@@ -26,9 +32,28 @@ export const getIndexes = (state, payload, action) => {
       state[boardIndex].columns.findIndex((column) => column.name === status) ||
       0;
   }
-  // if (action === actionEnums.add) {
-  //   columnIndex = 0;
-  //   taskIndex = state[boardIndex].columns[columnIndex].length - 1;
-  // }
   return { boardIndex, columnIndex, taskIndex };
+};
+
+export const getBoardIndex = (state, boardName) => {
+  const boardIndex = state.findIndex((board) => board.name === boardName);
+  return boardIndex;
+};
+
+export const searchTask = (input, allBoards, boardName) => {
+  const reg = new RegExp(input, "gi");
+  console.log(reg);
+  const boardIndex = getBoardIndex(allBoards, boardName);
+  const result = allBoards[boardIndex].columns.reduce(
+    (columnAccum, currentColumn) => {
+      return Array.from(columnAccum).concat(
+        currentColumn.tasks.filter(
+          (task) => task.id.match(reg) || task.title.match(reg)
+        )
+      );
+    },
+    []
+  );
+  console.log(result);
+  return result;
 };

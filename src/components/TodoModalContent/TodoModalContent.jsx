@@ -12,7 +12,6 @@ const TodoModalContent = ({
   boardName,
   columnName,
   setIsEditable,
-  setIsModalVisible,
   setShowDeleteModal
 }) => {
   const {status, files, subtasks} = task;
@@ -23,6 +22,8 @@ const TodoModalContent = ({
   const completedTasks = subtasks.filter(
     (subtask) => subtask.isCompleted
   ).length;
+
+  console.log(`${task.title}`)
 
   const [subtasksInputs, setSubtasksInput] = useSubtasksInputs({subtasks});
 
@@ -56,7 +57,7 @@ const TodoModalContent = ({
     if (componentDidMount) {
       dispatch(deleteTask(newTask));
       dispatch(addTask(newTask));
-      setIsModalVisible(false);
+      // setIsModalVisible(false);
     }
     setComponentDidMount(true);
   }, [taskStatus]);

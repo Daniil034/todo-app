@@ -1,6 +1,5 @@
 // import { useSelector } from "react-redux";
 // import { selectShowEditTodoModal } from "../features/editTodoModal/editTodoModalSlice";
-import { Outlet } from "react-router-dom";
 import AllBoards from "../features/allBoards/AllBoards";
 // import CurrentBoard from "../routes/currentBoard/CurrentBoard";
 // import EditTodoModal from "../features/editTodoModal/EditTodoModal";
@@ -12,7 +11,6 @@ function App() {
   return (
     <div className="App">
       <AllBoards />
-      <Outlet />
     
       {/* <CurrentBoard /> */}
       {/* {editTodoIsVisible && <EditTodoModal />} */}

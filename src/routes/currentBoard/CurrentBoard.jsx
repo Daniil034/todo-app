@@ -1,12 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useLoaderData, redirect } from "react-router-dom";
+import { useLoaderData, Outlet } from "react-router-dom";
 import TodoColumn from "../../components/TodoColumn/TodoColumn";
 import Header from "../../components/Header/Header";
+import { store } from "../../app/store";
+import { editBoard } from "../../features/allBoards/allBoardsSlice";
 
 export const loader = ({ params }) => {
   return params.boardName;
 };
+
+// export const action = async ({request, params}) => {
+//   const formData = await request.formData();
+//   const newBoardName = formData.get('newBoardName')
+//   store.dispatch(editBoard({boardName: newBoardName, oldBoardName: `${params.boardName}`}))
+//   return redirect(`/${newBoardName}`)
+// }
 
 const CurrentBoard = () => {
   const currentBoardName = useLoaderData();
@@ -21,6 +30,7 @@ const CurrentBoard = () => {
       {currentBoard.columns.map((column, index) => (
         <TodoColumn key={index} column={column} boardName={currentBoard.name} />
       ))}
+      <Outlet />
     </>
   );
 };
