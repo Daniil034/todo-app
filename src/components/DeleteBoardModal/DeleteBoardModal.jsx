@@ -10,7 +10,7 @@ const DeleteBoardModal = ({ boardName, setShowDeleteBoardModal }) => {
 
   const handleDelete = () => {
     dispatch(deleteBoard({ boardName }));
-    navigate("/todo-app");
+    navigate("/");
   };
 
   return (

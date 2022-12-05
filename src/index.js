@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import App from "./app/App";
 import CurrentBoard, {
   loader as currentBoardLoader,
@@ -14,18 +14,18 @@ import './UI/variables.scss';
 import './UI/reset.scss';
 import './UI/globalStyles.scss';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
-    path: "/todo-app",
+    path: "/",
     element: <App />,
   },
   {
-    path: "/todo-app/:boardName",
+    path: "/:boardName",
     element: <CurrentBoard />,
     loader: currentBoardLoader,
     children: [
       {
-        path: "/todo-app/:boardName/:taskId",
+        path: "/:boardName/:taskId",
         element: <TaskModal />,
         loader: taskLoader,
       },
