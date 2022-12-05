@@ -39,7 +39,7 @@ const CurrentBoardHeader = ({ boardName }) => {
           <button
             className="current-board-header__return"
             type="button"
-            onClick={() => navigate("/todo-app")}
+            onClick={() => navigate("/todo-app/")}
           >
             <IconBack />
           </button>
