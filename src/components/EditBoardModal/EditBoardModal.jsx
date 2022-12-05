@@ -15,7 +15,7 @@ const EditBoardModal = ({ boardName, setShowEditBoardModal }) => {
       editBoard({ boardName: newBoardName.trim(), oldBoardName: boardName })
     );
     setShowEditBoardModal(false);
-    navigate(`/${newBoardName}`);
+    navigate(`/todo-app/${newBoardName}`);
   };
 
   return (

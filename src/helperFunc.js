@@ -32,7 +32,6 @@ export const getTaskIndexes = (state, payload, action) => {
       state[boardIndex].columns.findIndex((column) => column.name === status) ||
       0;
   }
-  console.log(boardIndex, columnIndex, taskIndex);
   return { boardIndex, columnIndex, taskIndex };
 };
 
@@ -45,7 +44,6 @@ export const getBoardIndex = (state, boardName) => {
 
 export const searchTask = (input, allBoards, boardName) => {
   const reg = new RegExp(input, "gi");
-  console.log(reg);
   const boardIndex = getBoardIndex(allBoards, boardName);
   const result = allBoards[boardIndex].columns.reduce(
     (columnAccum, currentColumn) => {
@@ -57,13 +55,11 @@ export const searchTask = (input, allBoards, boardName) => {
     },
     []
   );
-  console.log(result);
   return result;
 };
 
 
 // export const getCommentsRecursion = (state, commentsId, newCommentContent) => {
-//   console.log(commentId);
 //   let commentId = state.findIndex(comment => commentsId.includes(comment.id));
 
 //   for (let i = 0; i < commentsId.length; i++) {
@@ -73,7 +69,6 @@ export const searchTask = (input, allBoards, boardName) => {
 
 //   for (let i = 0; i < state.length; i++) {
 //     if (state[i].id === commentId) {
-//       console.log([newCommentContent])
 //       return state[i].comments.concat([newCommentContent])
 //     } else {
 //       return [...getCommentsRecursion(state[i].comments, commentId, newCommentContent)]
@@ -104,7 +99,6 @@ export const searchTask = (input, allBoards, boardName) => {
 //         const found = getCommentsRecursion(element.comments, commentId, newCommentContent);
 
 //         if (found) {
-//           console.log(found)
 //           return [found];
 //         }
 //       }

@@ -20,7 +20,7 @@ const AllBoards = () => {
           <ul>
             {allBoards.map((board, index) => (
               <li className="all-boards__navbar-item" key={index}>
-                <Link className="all-boards__navbar-link" to={`/${board.name}`}>
+                <Link className="all-boards__navbar-link" to={`${board.name}`}>
                   <IconBoard />
                   {board.name}
                 </Link>

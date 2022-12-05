@@ -10,8 +10,6 @@ const initialState = localStorage.getItem("reduxState")
   ? JSON.parse(localStorage.getItem("reduxState")).allBoards
   : data.boards;
 
-console.log(initialState);
-
 export const allBoardsReducer = (allBoards = initialState, action) => {
   switch (action.type) {
     //
@@ -260,7 +258,6 @@ export const allBoardsReducer = (allBoards = initialState, action) => {
 
     case "allBoards/deleteBoard": {
       const { boardName } = action.payload;
-      console.log(boardName);
       return allBoards.filter((board) => board.name !== boardName);
     }
 

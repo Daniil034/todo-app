@@ -25,7 +25,7 @@ const TaskModal = () => {
   const columnName = task.status;
 
   return (
-    <div className="overlay" onClick={() => navigate(`/${boardName}`)}>
+    <div className="overlay" onClick={() => navigate(-1)}>
       <div className="task-modal" onClick={(e) => e.stopPropagation()}>
         {isEditable ? (
           <EditTaskModal
