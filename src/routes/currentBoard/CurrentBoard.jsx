@@ -1,22 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useLoaderData, Outlet } from "react-router-dom";
-import TodoColumn from "../../components/TodoColumn/TodoColumn";
-import Header from "../../components/Header/Header";
-import { store } from "../../app/store";
-import { editBoard } from "../../features/allBoards/allBoardsSlice";
+import Column from "../../components/Column/Column";
+import CurrentBoardHeader from "../../components/CurrentBoardHeader/CurrentBoardHeader";
+import './CurrentBoard.scss';
 
 export const loader = ({ params }) => {
   return params.boardName;
 };
-
-// export const action = async ({request, params}) => {
-//   const formData = await request.formData();
-//   const newBoardName = formData.get('newBoardName')
-//   store.dispatch(editBoard({boardName: newBoardName, oldBoardName: `${params.boardName}`}))
-//   return redirect(`/${newBoardName}`)
-// }
-
 const CurrentBoard = () => {
   const currentBoardName = useLoaderData();
 
@@ -25,13 +16,19 @@ const CurrentBoard = () => {
   );
 
   return (
-    <>
-      <Header boardName={currentBoard.name} />
-      {currentBoard.columns.map((column, index) => (
-        <TodoColumn key={index} column={column} boardName={currentBoard.name} />
-      ))}
+    <div className="current-board">
+      <CurrentBoardHeader boardName={currentBoard.name} />
+      <div className="current-board__columns">
+        {currentBoard.columns.map((column, index) => (
+          <Column
+            key={index}
+            column={column}
+            boardName={currentBoard.name}
+          />
+        ))}
+      </div>
       <Outlet />
-    </>
+    </div>
   );
 };
 

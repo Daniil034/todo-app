@@ -7,12 +7,14 @@ import CurrentBoard, {
   loader as currentBoardLoader,
   // action as editBoardAction,
 } from "./routes/currentBoard/CurrentBoard";
-import TodoModalContainer, {
+import TaskModal, {
   loader as taskLoader,
   action as editTaskAction
-} from "./components/TodoModalContainer/TodoModalContainer";
+} from "./routes/TaskModal/TaskModal";
 import { store } from "./app/store";
-// import reportWebVitals from './reportWebVitals';
+import './UI/variables.scss';
+import './UI/reset.scss';
+import './UI/globalStyles.scss';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/:boardName/:taskId",
-        element: <TodoModalContainer />,
+        element: <TaskModal />,
         loader: taskLoader,
         // action: editTaskAction
       },

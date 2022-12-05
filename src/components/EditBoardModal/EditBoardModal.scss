@@ -1,0 +1,56 @@
+@import "../../UI/variables.scss";
+
+.edit-board-modal {
+  padding: 24px;
+  border-radius: 6px;
+  background-color: $white;
+  position: absolute;
+  width: min(90%, 480px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  &__title {
+    color: $black;
+    font-size: 18px;
+    line-height: 23px;
+    margin-bottom: 24px;
+  }
+
+  &__subtitle {
+    color: $mediumGrey;
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 8px;
+  }
+
+  &__input {
+    display: block;
+    border: 1px solid rgba(130, 143, 163, 0.25);
+    border-radius: 4px;
+    width: 100%;
+    padding: 8px 16px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+    margin-bottom: 24px;
+    &:focus {
+      border: 1px solid $mainPurple;
+    }
+  }
+
+  &__submit {
+    width: 100%;
+    font-size: 13px;
+    line-height: 23px;
+    color: $white;
+    background-color: $mainPurple;
+    border-radius: 20px;
+    padding: 8px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    &:hover {
+        background-color: $mainPurpleHover;
+    }
+  }
+}

@@ -2,30 +2,38 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteBoard } from "../../features/allBoards/allBoardsSlice";
-import './style.css';
+import './DeleteBoardModal.scss';
 
 const DeleteBoardModal = ({ boardName, setShowDeleteBoardModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleDelete = () => {
-    dispatch(deleteBoard({boardName}));
+    dispatch(deleteBoard({ boardName }));
     navigate("/");
   };
 
   return (
     <div className="overlay" onClick={() => setShowDeleteBoardModal(false)}>
-      <div className="delete-board-modal" onClick={(e) => e.stopPropagation()}>
-        <h3>Delete this board?</h3>
-        <p>
+      <div className="delete-board__modal" onClick={(e) => e.stopPropagation()}>
+        <h3 className="delete-board__title">Delete this board?</h3>
+        <p className="delete-board__info">
           Are you sure you want to delete the ‘Platform Launch’ board? This
           action will remove all columns and tasks and cannot be reversed.
         </p>
-        <div>
-          <button type="button" onClick={handleDelete}>
+        <div className="delete-board__buttons">
+          <button
+            className="delete-board__button-delete"
+            type="button"
+            onClick={handleDelete}
+          >
             Delete
           </button>
-          <button type="button" onClick={() => setShowDeleteBoardModal(false)}>
+          <button
+            className="delete-board__button-cancel"
+            type="button"
+            onClick={() => setShowDeleteBoardModal(false)}
+          >
             Cancel
           </button>
         </div>

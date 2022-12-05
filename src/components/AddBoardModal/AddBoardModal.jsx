@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBoard } from "../../features/allBoards/allBoardsSlice";
 import { columnsEnums } from "../../helperFunc";
-import "./style.css";
+import "./AddBoardModal.scss";
 
 const AddBoardModal = ({ setShowAddBoardModal }) => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const AddBoardModal = ({ setShowAddBoardModal }) => {
     e.preventDefault();
     dispatch(
       addBoard({
-        name: boardName,
+        name: boardName.trim(),
         columns: [
           {
             name: columnsEnums[1],
@@ -34,11 +34,26 @@ const AddBoardModal = ({ setShowAddBoardModal }) => {
 
   return (
     <div className="overlay" onClick={() => setShowAddBoardModal(false)}>
-      <form className="add-board-modal" onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}>
-        <h3>Add New Board</h3>
-        <h4>Board Name</h4>
-        <input type="text" value={boardName} onChange={(e) => setBoardName(e.target.value)} />
-        <input type="submit" />
+      <form
+        className="add-board-modal"
+        onClick={(e) => e.stopPropagation()}
+        onSubmit={handleSubmit}
+      >
+        <h3 className="add-board-modal__title">Add New Board</h3>
+        <h4 className="add-board-modal__subtitle">Board Name</h4>
+        <input
+          className="add-board-modal__input"
+          type="text"
+          value={boardName}
+          onChange={(e) => setBoardName(e.target.value)}
+          placeholder="e.g. Web Design"
+          required
+        />
+        <input
+          className="add-board-modal__submit"
+          type="submit"
+          value="Create New Board"
+        />
       </form>
     </div>
   );

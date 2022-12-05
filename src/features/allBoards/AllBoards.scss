@@ -1,0 +1,54 @@
+@import "../../UI/variables.scss";
+
+.all-boards {
+  background-color: $lightGrey;
+  min-height: 100vh;
+  position: relative;
+
+  &__container {
+    width: min(85%, 960px);
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 20px;
+  }
+
+  &__title {
+    color: $mediumGrey;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__navbar-item {
+    margin-bottom: 10px;
+  }
+
+  &__navbar-link {
+    border-radius: 0px 100px 100px 0px;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 16px 32px 16px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    &:hover {
+      color: $mainPurple;
+      background-color: $secondaryPurple;
+      .icon-board {
+        fill: $mainPurple;
+      }
+    }
+
+    &:active {
+      border-radius: 0px 100px 100px 0px;
+      color: $white;
+      background-color: $mainPurpleHover;
+      .icon-board {
+        fill: $white;
+      }
+    }
+  }
+}

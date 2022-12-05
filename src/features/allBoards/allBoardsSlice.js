@@ -1,34 +1,29 @@
 import data from "../../data.json";
-import { actionEnums, getTaskIndexes, getBoardIndex } from "../../helperFunc";
-// const initialState = {
-//   boards: {},
-//   columns: {},
-//   tasks: {}
-// }
+import {
+  actionEnums,
+  getTaskIndexes,
+  getBoardIndex,
+  getCommentsRecursion,
+} from "../../helperFunc";
 
-// data.forEach(d => {
-//   const board = {...d};
-//   initialState.boards[board.name] = board;
+const initialState = localStorage.getItem("reduxState")
+  ? JSON.parse(localStorage.getItem("reduxState")).allBoards
+  : data.boards;
 
-//   d.columns.forEach(c => {
-//     const column = {...c, boardName: board.name};
+console.log(initialState);
 
-//   })
-// })
-
-// reducer
-
-const initialState = data.boards;
 export const allBoardsReducer = (allBoards = initialState, action) => {
   switch (action.type) {
     //
     case "allBoards/addTask": {
-      const { title, description, status, subtasks, id, files } =
-        action.payload;
-      const { boardIndex, columnIndex } = getTaskIndexes(
-        allBoards,
-        action.payload
-      );
+      const [newTask, { boardName, columnName }] = action.payload;
+      const { id, status } = newTask;
+      const { boardIndex, columnIndex } = getTaskIndexes(allBoards, {
+        id,
+        status,
+        boardName,
+        columnName,
+      });
       return [
         ...allBoards.slice(0, boardIndex),
         {
@@ -40,12 +35,7 @@ export const allBoardsReducer = (allBoards = initialState, action) => {
               tasks: [
                 ...allBoards[boardIndex].columns[columnIndex].tasks,
                 {
-                  title,
-                  description,
-                  status,
-                  subtasks,
-                  id,
-                  files,
+                  ...newTask,
                 },
               ],
             },
@@ -58,9 +48,16 @@ export const allBoardsReducer = (allBoards = initialState, action) => {
 
     //
     case "allBoards/deleteTask": {
+      const [newTask, { boardName, columnName }] = action.payload;
+      const { id, status } = newTask;
       const { boardIndex, columnIndex, taskIndex } = getTaskIndexes(
         allBoards,
-        action.payload,
+        {
+          id,
+          status,
+          boardName,
+          columnName,
+        },
         actionEnums.delete
       );
       return [
@@ -90,9 +87,16 @@ export const allBoardsReducer = (allBoards = initialState, action) => {
 
     //
     case "allBoards/editTask": {
+      const [newTask, { boardName, columnName }] = action.payload;
+      const { id, status } = newTask;
       const { boardIndex, columnIndex, taskIndex } = getTaskIndexes(
         allBoards,
-        action.payload,
+        {
+          id,
+          status,
+          boardName,
+          columnName,
+        },
         actionEnums.edit
       );
       return [
@@ -112,11 +116,112 @@ export const allBoardsReducer = (allBoards = initialState, action) => {
                   ...allBoards[boardIndex].columns[columnIndex].tasks[
                     taskIndex
                   ],
-                  title: action.payload.title,
-                  description: action.payload.description,
-                  status: action.payload.status,
-                  subtasks: action.payload.subtasks,
-                  files: action.payload.files,
+                  ...newTask,
+                },
+                ...allBoards[boardIndex].columns[columnIndex].tasks.slice(
+                  taskIndex + 1
+                ),
+              ],
+            },
+            ...allBoards[boardIndex].columns.slice(columnIndex + 1),
+          ],
+        },
+        ...allBoards.slice(boardIndex + 1),
+      ];
+    }
+
+    //
+
+    // case "allBoards/addComment": {
+    //   const [
+    //     parentsArray,
+    //     { newCommentContent, status, id, boardName, columnName },
+    //   ] = action.payload;
+    //   const { boardIndex, columnIndex, taskIndex } = getTaskIndexes(
+    //     allBoards,
+    //     { status, id, boardName, columnName },
+    //     actionEnums.edit
+    //   );
+
+    //   return [
+    //     ...allBoards.slice(0, boardIndex),
+    //     {
+    //       ...allBoards[boardIndex],
+    //       columns: [
+    //         ...allBoards[boardIndex].columns.slice(0, columnIndex),
+    //         {
+    //           ...allBoards[boardIndex].columns[columnIndex],
+    //           tasks: [
+    //             ...allBoards[boardIndex].columns[columnIndex].tasks.slice(
+    //               0,
+    //               taskIndex
+    //             ),
+    //             {
+    //               ...allBoards[boardIndex].columns[columnIndex].tasks[
+    //                 taskIndex
+    //               ],
+    //               comments:
+    //                 // action.payload.reduce((commentAccum, currentComment, currentIndex) => {
+    //                 //   for (let i = 0; i <= currentIndex; i++) {
+    //                 //     const commentIndex = commentAccum.findIndex(comment => comment.id === currentComment);
+    //                 //     return [...commentAccum[commentIndex].slice(0, )]
+    //                 //   }
+    //                 //   return {...allBoards[boardIndex].columns[columnIndex].tasks[taskIndex].comments[currentComment]}
+    //                 // }, allBoards[boardIndex].columns[columnIndex].tasks[taskIndex].comments)
+    //                 getCommentsRecursion(
+    //                   allBoards[boardIndex].columns[columnIndex].tasks[
+    //                     taskIndex
+    //                   ].comments,
+    //                   parentsArray,
+    //                   newCommentContent
+    //                 ),
+    //             },
+    //             ...allBoards[boardIndex].columns[columnIndex].tasks.slice(
+    //               taskIndex + 1
+    //             ),
+    //           ],
+    //         },
+    //         ...allBoards[boardIndex].columns.slice(columnIndex + 1),
+    //       ],
+    //     },
+    //     ...allBoards.slice(boardIndex + 1),
+    //   ];
+    // }
+
+    //
+
+    case "allBoards/addComment": {
+      const [newCommentContent, status, id, boardName, columnName] =
+        action.payload;
+      const { boardIndex, columnIndex, taskIndex } = getTaskIndexes(
+        allBoards,
+        { status, id, boardName, columnName },
+        actionEnums.edit
+      );
+
+      return [
+        ...allBoards.slice(0, boardIndex),
+        {
+          ...allBoards[boardIndex],
+          columns: [
+            ...allBoards[boardIndex].columns.slice(0, columnIndex),
+            {
+              ...allBoards[boardIndex].columns[columnIndex],
+              tasks: [
+                ...allBoards[boardIndex].columns[columnIndex].tasks.slice(
+                  0,
+                  taskIndex
+                ),
+                {
+                  ...allBoards[boardIndex].columns[columnIndex].tasks[
+                    taskIndex
+                  ],
+                  comments: [
+                    ...allBoards[boardIndex].columns[columnIndex].tasks[
+                      taskIndex
+                    ].comments,
+                    newCommentContent
+                  ]
                 },
                 ...allBoards[boardIndex].columns[columnIndex].tasks.slice(
                   taskIndex + 1
@@ -208,11 +313,16 @@ export const deleteBoard = (payload) => {
   };
 };
 
+export const addComment = (payload) => {
+  return {
+    type: "allBoards/addComment",
+    payload: payload,
+  };
+};
+
 // selectors
 
 export const selectAllBoards = (state) => state.allBoards;
-
-// export const selectAllBoardsNames = (state) => state.allBoards.map(board=> board.name);
 
 export const selectAllTasks = (state) =>
   state.allBoards.reduce((boardsAccum, currentBoard) => {

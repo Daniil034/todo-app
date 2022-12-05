@@ -1,0 +1,160 @@
+@import "../../UI/variables.scss";
+
+.task-modal {
+  &__header {
+    display: flex;
+    margin-bottom: 24px;
+    justify-content: space-between;
+  }
+
+  &__title {
+    color: $black;
+    font-size: 18px;
+    line-height: 23px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__edit-button,
+  &__delete-button {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+    cursor: pointer;
+  }
+
+  &__edit-button {
+    color: $mediumGrey;
+  }
+
+  &__delete-button {
+    color: $red;
+  }
+
+  &__id,
+  &__created,
+  &__closed,
+  &__atwork {
+    color: $black;
+    font-size: 14px;
+    line-height: 15px;
+    margin-bottom: 20px;
+  }
+
+  &__id-span,
+  &__created-span,
+  &__closed-span,
+  &__atwork-span {
+    color: $mediumGrey;
+    font-size: 12px;
+  }
+
+  &__description {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+    color: $mediumGrey;
+    margin-bottom: 24px;
+  }
+
+  &__subtitle {
+    font-size: 12px;
+    line-height: 15px;
+    color: $mediumGrey;
+    margin-bottom: 16px;
+  }
+
+  &__subtasks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  &__subtask {
+    display: flex;
+    gap: 20px;
+    background-color: $lightGrey;
+    cursor: pointer;
+    padding: 12px 12px 16px;
+    border-radius: 4px;
+  }
+
+  &__subtask-checkbox {
+    min-width: 20px;
+  }
+
+  &__status {
+    color: $mediumGrey;
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 8px;
+  }
+
+  &__select {
+    width: 100%;
+    color: $black;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+    padding: 8px 16px;
+    border: 1px solid rgba(130, 143, 163, 0.25);
+    border-radius: 4px;
+    outline: none;
+    appearance: none;
+    background-image: url("../../assets/icon-chevron-down.svg");
+    background-position: center right 16px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  &__option {
+    color: $mediumGrey;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+  }
+
+  &__images {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__img {
+    width: 100%;
+    margin-bottom: 20px;
+    aspect-ratio: auto;
+  }
+
+  &__comments {
+    margin-top: 25px;
+  }
+
+  &__comments-title {
+    color: $black;
+    font-size: 14px;
+    line-height: 15px;
+    margin-bottom: 10px;
+  }
+
+  &__comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__comments-item {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 15px;
+    background-color: $lines;
+    padding: 16px 8px;
+    border-radius: 4px;
+  }
+}

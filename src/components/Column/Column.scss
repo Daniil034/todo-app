@@ -1,0 +1,45 @@
+@import '../../UI/variables.scss';
+
+.column {
+  width: 280px;
+  flex-shrink: 0;
+
+  &__name {
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 2.4px;
+    color: $mediumGrey;
+    position: relative;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  &__queue,
+  &__development,
+  &__done {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+  }
+
+  &__queue {
+    background-color: #49C4E5;
+  }
+
+  &__development {
+    background-color: #8471F2;
+  }
+
+  &__done {
+    background-color: #67E2AE;
+  }
+
+  &__tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+  }
+}

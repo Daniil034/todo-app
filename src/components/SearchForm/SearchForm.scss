@@ -1,0 +1,38 @@
+@import "../../UI/variables.scss";
+
+.search-form {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  font-weight: 500;
+  margin-top: 16px;
+
+  &__input {
+    font-size: 16px;
+    width: 200px;
+    -webkit-appearance: none;
+    border-radius: 0;
+    border-bottom: 1px solid $mediumGrey;
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 30px;
+    background-color: $white;
+    padding: 16px;
+    box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
+    border-radius: 8px;
+    width: 300px;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 300px;
+    overflow: auto;
+  }
+
+  &__dropdown-item:not(:last-child) {
+    padding-bottom: 5px;
+    border-bottom: 1px solid $lightGrey;
+  }
+}

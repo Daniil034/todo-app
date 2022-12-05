@@ -1,0 +1,22 @@
+@import '../../UI/variables.scss';
+
+.current-board {
+    display: flex;
+    flex-direction: column;
+    background-color: $lightGrey;
+    min-height: 100vh;
+    &__columns {
+        display: flex;
+        justify-content: space-between;
+        overflow-x: auto;
+        padding: 24px 16px;
+        gap: 24px;
+        flex-grow: 2;
+        @media (min-width: $medium) {
+            padding: 24px;
+        }
+        @media (min-width: $large) {
+            justify-content: space-around;
+        }
+    }
+}

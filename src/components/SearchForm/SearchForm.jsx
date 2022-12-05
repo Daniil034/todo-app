@@ -1,58 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  selectAllBoards,
-} from "../../features/allBoards/allBoardsSlice";
-import { searchTask } from "../../helperFunc";
+import { selectAllBoards } from "../../features/allBoards/allBoardsSlice";
 import { Link } from "react-router-dom";
+import { searchTask } from "../../helperFunc";
+import IconCross from "../icons/IconCross";
+import "./SearchForm.scss";
 
-const SearchForm = ({ boardName }) => {
+const SearchForm = ({ boardName, setShowSearchForm }) => {
   const [searchForm, setSearchForm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
-  //   const allBoards = useSelector(selectAllBoardsNames);
   const allBoards = useSelector(selectAllBoards);
 
-  console.log(searchForm.length);
-
   useEffect(() => {
-    // const timer = setTimeout(() => {
     if (searchForm.length > 5) {
       setSearchResults(searchTask(searchForm, allBoards, boardName));
     } else {
       setSearchResults([]);
     }
-
-    // }, 500);
-
-    // return () => clearTimeout(timer);
   }, [searchForm]);
 
   return (
-    <>
-      <form id="search-form" role="search">
+    <div className="search-form">
+      <form role="search">
         <input
+        className="search-form__input"
           aria-label="Search task"
-          placeholder="Search for task"
+          placeholder="T-000010"
           type="search"
           name="q"
           value={searchForm}
           onChange={(e) => setSearchForm(e.target.value)}
         />
         {searchResults.length > 0 ? (
-          searchResults.map((task, index) => (
-            <Link to={`${task.id}`} key={index}>
-              <div>{task.id}</div>
-              <div>{task.title}</div>
-            </Link>
-          ))
+          <ul className="search-form__dropdown">
+            {searchResults.map((task, index) => (
+              <li className="search-form__dropdown-item" key={index}>
+                <Link to={`${task.id}`}>
+                  <p>{task.id}</p>
+                  <p>{task.title}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
         ) : 5 < searchForm.length ? (
           <p>No match found on current board</p>
-        ) : searchForm.length <= 5 ? (
-          <p>Input task name or id</p>
-        ) : null}
+        ) :  null}
       </form>
-    </>
+      <button type="button" onClick={() => setShowSearchForm(false)}>
+        <IconCross />
+      </button>
+    </div>
   );
 };
 
