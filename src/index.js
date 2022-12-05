@@ -16,7 +16,7 @@ import './UI/globalStyles.scss';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/todo-app",
     element: <App />,
   },
   {
